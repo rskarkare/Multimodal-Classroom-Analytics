@@ -1,0 +1,9 @@
+# Complete runtime dependencies for build_final_results.py and the analysis
+# helper modules. These versions are mutually compatible on Python 3.11 and
+# make the generated statistics reproducible across installations.
+numpy==1.26.4
+pandas==2.2.3
+openpyxl==3.1.5
+scipy==1.14.1
+scikit-learn==1.5.2
+krippendorff==0.8.2
