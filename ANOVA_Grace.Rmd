@@ -1,0 +1,253 @@
+---
+title: "ANOVA_Final"
+author: "Grace"
+date: "2026-08-24"
+output: html_document
+---
+
+### Libraries 
+```{r}
+install.packages(c(
+  "Matrix",
+  "lme4",
+  "lmerTest",
+  "emmeans",
+  "readxl",
+  "dplyr"
+))
+```
+
+```{r}
+library(readxl)
+library(dplyr)
+library(afex)
+```
+
+####  Activity Type Prop. Correct 
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 3)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between",
+    Question_Type == "Activities"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_Proportion_Correct = mean(Proportion_Correct, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_Proportion_Correct",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
+
+
+ #### Actions Occurring  Mean F1
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 3)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between",
+    Question_Type == "Actions"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_F1 = mean(F1, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_F1",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
+ 
+ #### Actions Occurring  ROC_AUC
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 3)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between",
+    Question_Type == "Actions"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_ROC_AUC = mean(ROC_AUC, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_ROC_AUC",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
+
+
+####  Engagement Prop. Correct 
+
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 9)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_Correct = mean(Correct, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_Correct",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
+
+####  Engagement Abs. Distance
+
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 9)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_Absolute_Distance = mean(Absolute_Distance, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_Absolute_Distance",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
+
+####  Gaze Prop. Correct 
+
+```{r}
+# Load data
+df <- read_excel("/Users/caoguangjing/Desktop/Result/Final_Result_Clean.xlsx", sheet = 11)
+
+# Filter + calculate participant-level mean for each modality
+df_rm <- df %>%
+  filter(
+    Design == "Between"
+  ) %>%
+  group_by(Participant, Modality) %>%
+  summarise(
+    Mean_Correct = mean(Correct, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Participant = factor(Participant),
+    Modality = factor(Modality)
+  )
+
+print(df_rm)
+
+table(df_rm$Modality)
+
+# Repeated Measures ANOVA
+model_rm <- aov_ez(
+  id = "Participant",
+  dv = "Mean_Correct",
+  within = "Modality",
+  data = df_rm
+)
+
+# Results
+print(model_rm)
+```
